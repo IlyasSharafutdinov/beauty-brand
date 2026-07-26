@@ -742,7 +742,7 @@
     });
   });
 
-  // Cart logic
+  // ---------- КОРЗИНА (ИЗМЕНЕННЫЙ БЛОК) ----------
   let cart = [];
   const cartCountEl = document.getElementById('cartCount');
   const drawerItems = document.getElementById('drawerItems');
@@ -751,34 +751,77 @@
   const overlay = document.getElementById('overlay');
   const swatchColors = ['tone-jar','tone-blush','tone-gold','tone-lilac','tone-rose','tone-clear'];
 
+  // Функция отображения корзины
   function renderCart(){
-    cartCountEl.textContent = cart.length;
+    // Считаем общее количество всех товаров с учетом их штук
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCountEl.textContent = totalCount;
+
     if(cart.length === 0){
       drawerItems.innerHTML = '<p class="empty-cart">Your bag is looking a little bare.</p>';
       subtotalEl.textContent = '$0';
       return;
     }
-    drawerItems.innerHTML = cart.map((item, i) => `
-      <div class="d-item">
+
+    // Рендерим каждый товар с кнопками +, - и удаления (✕)
+    drawerItems.innerHTML = cart.map((item, index) => `
+      <div class="d-item" style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px; border-bottom: 1px solid rgba(42,30,40,0.06); padding-bottom: 14px;">
         <div class="swatch ${item.tone}"></div>
-        <div class="info">
-          <h4>${item.name}</h4>
-          <span>$${item.price}</span>
+        <div class="info" style="flex-grow: 1;">
+          <h4 style="font-size: 0.9rem; font-weight: 600;">${item.name}</h4>
+          <span style="font-size: 0.78rem; color: var(--ink-soft);">$${item.price} × ${item.quantity} = $${item.price * item.quantity}</span>
+          
+          <!-- Кнопки управления количеством -->
+          <div style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">
+            <button onclick="changeQuantity(${index}, -1)" style="width: 22px; height: 22px; background: #eee; border-radius: 4px; font-weight: bold;">-</button>
+            <span style="font-size: 0.85rem; font-weight: 600;">${item.quantity}</span>
+            <button onclick="changeQuantity(${index}, 1)" style="width: 22px; height: 22px; background: #eee; border-radius: 4px; font-weight: bold;">+</button>
+          </div>
         </div>
+        <!-- Кнопка полного удаления товара -->
+        <button onclick="removeItem(${index})" style="background: none; font-size: 1.1rem; color: #888; padding: 5px;" title="Удалить">✕</button>
       </div>
     `).join('');
-    const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+
+    // Считаем общую сумму заказа
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     subtotalEl.textContent = '$' + subtotal;
   }
 
+  // Функция изменения количества товара (+1 или -1)
+  window.changeQuantity = function(index, delta) {
+    cart[index].quantity += delta;
+    if (cart[index].quantity <= 0) {
+      cart.splice(index, 1); // Если количество стало 0, удаляем товар совсем
+    }
+    renderCart();
+  }
+
+  // Функция полного удаления товара из корзины
+  window.removeItem = function(index) {
+    cart.splice(index, 1);
+    renderCart();
+  }
+
+  // Добавление товара в корзину при клике на плюс в карточке
   document.querySelectorAll('.add-btn').forEach((btn, i) => {
     btn.addEventListener('click', () => {
-      cart.push({
-        name: btn.dataset.name,
-        price: parseInt(btn.dataset.price, 10),
-        tone: swatchColors[i % swatchColors.length]
-      });
+      const name = btn.dataset.name;
+      const price = parseInt(btn.dataset.price, 10);
+      const tone = swatchColors[i % swatchColors.length];
+
+      // Проверяем, есть ли уже такой товар в корзине
+      const existingItem = cart.find(item => item.name === name);
+      if (existingItem) {
+        existingItem.quantity += 1; // Если есть, увеличиваем количество на 1
+      } else {
+        // Если нет, добавляем новый объект с quantity: 1
+        cart.push({ name, price, tone, quantity: 1 });
+      }
+
       renderCart();
+      
+      // Анимация кружочка корзины
       cartCountEl.classList.remove('pulse');
       void cartCountEl.offsetWidth;
       cartCountEl.classList.add('pulse');
