@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STRATA — Skincare, Surveyed</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;800;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --basalt: #17151a;
+    --basalt-2: #201d24;
+    --stone: #eae3d4;
+    --stone-2: #ded5c2;
+    --oxide: #b15a32;
+    --oxide-dim: #8a4526;
+    --verdigris: #5e7a6c;
+    --quartz: #d9bfc4;
+    --chalk: #f5f2ea;
+    --ink: #17151a;
+    --line: rgba(245,242,234,0.16);
+    --line-dark: rgba(23,21,26,0.14);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--chalk);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--oxide); color:var(--chalk);}
+
+  :focus-visible{
+    outline:2px solid var(--oxide);
+    outline-offset:3px;
+  }
+
+  .eyebrow{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    opacity:0.7;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px clamp(20px,4vw,48px);
+    mix-blend-mode:difference;
+    color:#fff;
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+  }
+  .nav-logo{
+    font-family:'Big Shoulders Display',sans-serif;
+    font-weight:800;
+    font-size:20px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+  }
+  .nav-links{display:flex; gap:28px; align-items:center;}
+  .nav-links a{text-decoration:none; text-transform:uppercase; opacity:0.85;}
+  .nav-links a:hover{opacity:1;}
+  .nav-depth{opacity:0.85;}
+  @media (max-width:720px){ .nav-links{display:none;} }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    background:var(--basalt);
+    color:var(--chalk);
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:0 clamp(20px,4vw,48px) 64px;
+    overflow:hidden;
+  }
+  .hero-bands{
+    position:absolute; inset:0;
+    display:flex; flex-direction:column;
+    opacity:0.55;
+  }
+  .hero-bands div{flex:1;}
+  .hero-ruler{
+    position:absolute;
+    top:0; bottom:0; right:clamp(16px,3.5vw,44px);
+    width:40px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:110px 0 40px;
+  }
+  .hero-ruler span{
+    font-family:'Space Mono',monospace;
+    font-size:10px;
+    color:rgba(245,242,234,0.45);
+    text-align:right;
+    border-bottom:1px solid rgba(245,242,234,0.2);
+    padding-bottom:2px;
+  }
+  .hero-inner{position:relative; z-index:2; max-width:980px;}
+  .hero-eyebrow{
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    color:var(--quartz);
+    margin-bottom:22px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .hero-eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    background:var(--oxide);
+    display:inline-block;
+    border-radius:50%;
+  }
+  h1.hero-title{
+    font-family:'Big Shoulders Display',sans-serif;
+    font-weight:900;
+    font-size:clamp(52px,9vw,132px);
+    line-height:0.88;
+    letter-spacing:-0.01em;
+    margin:0 0 28px;
+    text-transform:uppercase;
+  }
+  h1.hero-title em{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:400;
+    text-transform:none;
+    color:var(--stone-2);
+    font-size:0.62em;
+    display:block;
+    letter-spacing:0;
+  }
+  .hero-sub{
+    max-width:520px;
+    font-size:17px;
+    line-height:1.6;
+    color:rgba(245,242,234,0.75);
+    margin-bottom:36px;
+  }
+  .hero-cta-row{display:flex; align-items:center; gap:22px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    text-decoration:none;
+    padding:15px 26px;
+    border:1px solid var(--chalk);
+    color:var(--chalk);
+    background:transparent;
+    cursor:pointer;
+    transition:background 0.25s ease, color 0.25s ease;
+    display:inline-block;
+  }
+  .btn:hover{background:var(--chalk); color:var(--basalt);}
+  .btn.solid{background:var(--oxide); border-color:var(--oxide); color:var(--chalk);}
+  .btn.solid:hover{background:var(--chalk); color:var(--basalt); border-color:var(--chalk);}
+  .hero-note{font-family:'Space Mono',monospace; font-size:11px; color:rgba(245,242,234,0.5);}
+
+  /* ---------- MARQUEE / STRIP ---------- */
+  .strip{
+    background:var(--oxide);
+    color:var(--chalk);
+    overflow:hidden;
+    white-space:nowrap;
+    border-top:1px solid rgba(0,0,0,0.15);
+  }
+  .strip-track{
+    display:inline-flex;
+    animation:scroll-left 32s linear infinite;
+  }
+  @keyframes scroll-left{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  .strip-track span{
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    padding:12px 28px;
+    display:inline-block;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:120px clamp(20px,4vw,48px);}
+  .section-head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:24px; margin-bottom:64px; flex-wrap:wrap;
+    border-bottom:1px solid var(--line-dark);
+    padding-bottom:24px;
+  }
+  .section-head h2{
+    font-family:'Big Shoulders Display',sans-serif;
+    font-weight:800;
+    text-transform:uppercase;
+    font-size:clamp(32px,4.4vw,56px);
+    margin:6px 0 0;
+    line-height:0.95;
+  }
+  .section-num{
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    opacity:0.55;
+  }
+
+  /* ---------- PHILOSOPHY ---------- */
+  .philosophy{
+    background:var(--stone);
+    padding-top:100px; padding-bottom:100px;
+  }
+  .phil-quote{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(26px,3.6vw,44px);
+    line-height:1.35;
+    max-width:900px;
+    color:var(--basalt);
+  }
+  .phil-quote strong{
+    font-style:normal;
+    font-weight:500;
+    color:var(--oxide-dim);
+  }
+  .phil-meta{
+    margin-top:32px;
+    display:flex; gap:40px; flex-wrap:wrap;
+    font-family:'Space Mono',monospace;
+    font-size:12px;
+    color:var(--basalt);
+    opacity:0.65;
+  }
+
+  /* ---------- CORE SAMPLE / ROUTINE ---------- */
+  .core{background:var(--chalk);}
+  .core-wrap{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:0 28px;
+    max-width:1100px;
+    margin:0 auto;
+  }
+  .core-depth-col{
+    display:flex; flex-direction:column;
+  }
+  .layer{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    grid-column:1 / -1;
+    border-top:1px solid var(--line-dark);
+    cursor:pointer;
+  }
+  .layer:last-child{border-bottom:1px solid var(--line-dark);}
+  .layer-depth{
+    font-family:'Space Mono',monospace;
+    font-size:11px;
+    padding:26px 0;
+    color:var(--basalt);
+    opacity:0.55;
+    align-self:start;
+  }
+  .layer-band{
+    padding:26px 0;
+    display:flex;
+    align-items:center;
+    gap:26px;
+    transition:padding 0.35s ease;
+  }
+  .layer-swatch{
+    width:14px; height:56px;
+    flex:0 0 auto;
+    transition:height 0.35s ease;
+  }
+  .layer-text h3{
+    font-family:'Big Shoulders Display',sans-serif;
+    text-transform:uppercase;
+    font-weight:700;
+    font-size:22px;
+    margin:0 0 6px;
+    letter-spacing:0.01em;
+  }
+  .layer-text p{
+    margin:0;
+    font-size:14px;
+    line-height:1.55;
+    max-width:560px;
+    color:rgba(23,21,26,0.68);
+    max-height:0;
+    overflow:hidden;
+    opacity:0;
+    transition:max-height 0.4s ease, opacity 0.3s ease;
+  }
+  .layer.open .layer-text p{max-height:120px; opacity:1; margin-top:8px;}
+  .layer.open .layer-band{padding:34px 0;}
+  .layer .layer-tag{
+    font-family:'Space Mono',monospace;
+    font-size:10px;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--oxide-dim);
+  }
+  .layer-plus{
+    margin-left:auto;
+    font-family:'Space Mono',monospace;
+    font-size:20px;
+    color:var(--basalt);
+    opacity:0.4;
+    flex:0 0 auto;
+    transition:transform 0.3s ease;
+  }
+  .layer.open .layer-plus{transform:rotate(45deg); opacity:0.8;}
+
+  /* ---------- INGREDIENTS ---------- */
+  .ingredients{background:var(--basalt); color:var(--chalk);}
+  .ingredients .section-head{border-bottom-color:var(--line);}
+  .ing-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  @media (max-width:900px){ .ing-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .ing-grid{grid-template-columns:1fr;} }
+  .ing-card{
+    background:var(--basalt);
+    padding:32px 26px 28px;
+    min-height:280px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    transition:background 0.3s ease;
+  }
+  .ing-card:hover{background:var(--basalt-2);}
+  .ing-num{font-family:'Space Mono',monospace; font-size:11px; color:var(--oxide); opacity:0.9;}
+  .ing-name{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-size:24px;
+    margin:60px 0 10px;
+    color:var(--stone);
+  }
+  .ing-desc{font-size:13.5px; line-height:1.6; color:rgba(245,242,234,0.6); margin:0 0 14px;}
+  .ing-source{font-family:'Space Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--verdigris);}
+
+  /* ---------- LOG / CREDIBILITY ---------- */
+  .log{background:var(--stone);}
+  .log-table{
+    max-width:1000px; margin:0 auto;
+    border-top:1px solid var(--line-dark);
+  }
+  .log-row{
+    display:grid;
+    grid-template-columns:100px 1fr 200px;
+    gap:20px;
+    padding:22px 0;
+    border-bottom:1px solid var(--line-dark);
+    align-items:baseline;
+  }
+  @media (max-width:640px){
+    .log-row{grid-template-columns:70px 1fr; }
+    .log-row .log-val{grid-column:1 / -1; padding-left:70px;}
+  }
+  .log-idx{font-family:'Space Mono',monospace; font-size:12px; opacity:0.5;}
+  .log-label{font-size:16px; font-weight:500;}
+  .log-val{font-family:'Space Mono',monospace; font-size:13px; color:var(--oxide-dim); text-align:right;}
+  @media (max-width:640px){ .log-val{text-align:left; opacity:0.75;} }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    background:var(--basalt);
+    color:var(--chalk);
+    padding:100px clamp(20px,4vw,48px) 40px;
+  }
+  .foot-cta{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    gap:32px; flex-wrap:wrap;
+    padding-bottom:60px;
+    border-bottom:1px solid var(--line);
+  }
+  .foot-cta h2{
+    font-family:'Big Shoulders Display',sans-serif;
+    font-weight:800;
+    text-transform:uppercase;
+    font-size:clamp(34px,5.4vw,68px);
+    max-width:640px;
+    margin:0;
+    line-height:0.95;
+  }
+  .foot-form{display:flex; gap:0; border-bottom:1px solid var(--chalk); min-width:280px; max-width:340px;}
+  .foot-form input{
+    background:transparent; border:none; color:var(--chalk);
+    font-family:'Space Mono',monospace; font-size:13px; padding:12px 4px; flex:1; outline:none;
+  }
+  .foot-form input::placeholder{color:rgba(245,242,234,0.45);}
+  .foot-form button{
+    background:none; border:none; color:var(--oxide); font-family:'Space Mono',monospace;
+    text-transform:uppercase; font-size:12px; letter-spacing:0.08em; cursor:pointer; padding:12px 4px;
+  }
+  .foot-form button:hover{color:var(--quartz);}
+  .foot-bottom{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;
+    padding-top:28px;
+    font-family:'Space Mono',monospace; font-size:11px; color:rgba(245,242,234,0.45);
+  }
+  .foot-bottom a{text-decoration:none; opacity:0.8;}
+  .foot-bottom a:hover{opacity:1;}
+
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity 0.7s ease, transform 0.7s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Strata</div>
+  <div class="nav-links">
+    <a href="#core">Routine</a>
+    <a href="#ingredients">Minerals</a>
+    <a href="#log">Survey</a>
+    <a href="#join">Join</a>
+  </div>
+  <div class="nav-depth"><span id="depthReadout">0.0 M</span></div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bands" aria-hidden="true">
+    <div style="background:#201d24;"></div>
+    <div style="background:#241f27;"></div>
+    <div style="background:#2a2029;"></div>
+    <div style="background:#231d22;"></div>
+  </div>
+  <div class="hero-ruler" aria-hidden="true" id="heroRuler"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Core sample no. 014 — formulated, not blended</div>
+    <h1 class="hero-title">Skin,<em>surveyed like ground worth knowing.</em></h1>
+    <p class="hero-sub">Strata reads skin the way a geologist reads rock — in layers, under pressure, over time. Five products, one sequence, minerals pulled from four sites we can name.</p>
+    <div class="hero-cta-row">
+      <a class="btn solid" href="#core">Read the core sample</a>
+      <a class="btn" href="#ingredients">See the minerals</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip" aria-hidden="true">
+  <div class="strip-track">
+    <span>NO SYNTHETIC FRAGRANCE</span><span>4 QUARRIES, NAMED</span><span>BATCH-TESTED BY DEPTH</span><span>REFORMULATED NEVER, RECORDED ALWAYS</span>
+    <span>NO SYNTHETIC FRAGRANCE</span><span>4 QUARRIES, NAMED</span><span>BATCH-TESTED BY DEPTH</span><span>REFORMULATED NEVER, RECORDED ALWAYS</span>
+  </div>
+</div>
+
+<section class="philosophy">
+  <div class="reveal">
+    <p class="eyebrow">Field note</p>
+    <p class="phil-quote">Most skincare is mixed. Ours is <strong>laid down</strong> — one material at a time, in the order it needs to work, the same way sediment settles before it becomes stone.</p>
+    <div class="phil-meta">
+      <span>Founded on a quarry road, 2019</span>
+      <span>Formulated in small batch</span>
+      <span>Every layer logged by lot number</span>
+    </div>
+  </div>
+</section>
+
+<section class="core" id="core">
+  <div class="section-head reveal">
+    <div>
+      <p class="eyebrow">The core sample</p>
+      <h2>Five layers,<br>in order.</h2>
+    </div>
+    <p class="section-num">DEPTH 0–11CM / TAP TO EXPAND</p>
+  </div>
+  <div class="core-wrap reveal" id="coreWrap"></div>
+</section>
+
+<section class="ingredients" id="ingredients">
+  <div class="section-head reveal">
+    <div>
+      <p class="eyebrow">Source material</p>
+      <h2>Named<br>deposits.</h2>
+    </div>
+    <p class="section-num">04 MINERALS / 04 SITES</p>
+  </div>
+  <div class="ing-grid reveal">
+    <div class="ing-card">
+      <span class="ing-num">01</span>
+      <div>
+        <div class="ing-name">Rose Quartz</div>
+        <p class="ing-desc">Micronized to a talc-fine polish for the toner — buffs without stripping the acid mantle.</p>
+        <p class="ing-source">Minas Gerais, Brazil</p>
+      </div>
+    </div>
+    <div class="ing-card">
+      <span class="ing-num">02</span>
+      <div>
+        <div class="ing-name">Glacial Clay</div>
+        <p class="ing-desc">Rock flour ground by moving ice, high in trace silica — the base of our first-step cleanse.</p>
+        <p class="ing-source">Southern Iceland</p>
+      </div>
+    </div>
+    <div class="ing-card">
+      <span class="ing-num">03</span>
+      <div>
+        <div class="ing-name">Volcanic Ash</div>
+        <p class="ing-desc">Porous basalt ash, sieved for mineral content and used in the serum for its trace zinc and iron.</p>
+        <p class="ing-source">Azores, Portugal</p>
+      </div>
+    </div>
+    <div class="ing-card">
+      <span class="ing-num">04</span>
+      <div>
+        <div class="ing-name">Sea Salt Brine</div>
+        <p class="ing-desc">Solar-evaporated brine, unrefined, carrying the magnesium that anchors our final-step cream.</p>
+        <p class="ing-source">Camargue, France</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="log" id="log">
+  <div class="section-head reveal">
+    <div>
+      <p class="eyebrow">Survey log</p>
+      <h2>What we<br>measured.</h2>
+    </div>
+    <p class="section-num">UPDATED QUARTERLY</p>
+  </div>
+  <div class="log-table reveal">
+    <div class="log-row">
+      <span class="log-idx">01</span>
+      <span class="log-label">Sites we source from directly, no brokers between quarry and lab</span>
+      <span class="log-val">4 NAMED</span>
+    </div>
+    <div class="log-row">
+      <span class="log-idx">02</span>
+      <span class="log-label">Average batch size, kept small enough to track by lot</span>
+      <span class="log-val">340 UNITS</span>
+    </div>
+    <div class="log-row">
+      <span class="log-idx">03</span>
+      <span class="log-label">Synthetic fragrance across the entire line</span>
+      <span class="log-val">NONE ADDED</span>
+    </div>
+    <div class="log-row">
+      <span class="log-idx">04</span>
+      <span class="log-label">Formula changes since first core sample in 2019</span>
+      <span class="log-val">ZERO</span>
+    </div>
+  </div>
+</section>
+
+<footer id="join">
+  <div class="foot-cta reveal">
+    <h2>Join the survey list.</h2>
+    <form class="foot-form" id="joinForm">
+      <input type="email" placeholder="you@email.com" aria-label="Email address" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Strata Mineral Skincare</span>
+    <div style="display:flex; gap:24px;">
+      <a href="#core">Routine</a>
+      <a href="#ingredients">Minerals</a>
+      <a href="#log">Survey</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Core sample layer data
+  const layers = [
+    {depth:"0–2CM", tag:"Step 01 / Surface", name:"Glacial Clay Wash", color:"#ded5c2", desc:"A cream cleanser carrying glacial rock flour — lifts the day off without disturbing what's underneath."},
+    {depth:"2–4CM", tag:"Step 02 / Prep", name:"Rose Quartz Toner", color:"#d9bfc4", desc:"Micronized quartz suspended in mineral water. Re-balances pH before anything else is layered on."},
+    {depth:"4–6CM", tag:"Step 03 / Treat", name:"Volcanic Ash Serum", color:"#b15a32", desc:"Concentrated trace minerals from sieved basalt ash. The densest layer — a little goes a long way."},
+    {depth:"6–9CM", tag:"Step 04 / Seal", name:"Basalt Lipid Cream", color:"#5e7a6c", desc:"A heavier emulsion that locks moisture in, the way compacted rock holds what settled before it."},
+    {depth:"9–11CM", tag:"Step 05 / Shield", name:"Quartz Mineral SPF", color:"#17151a", desc:"Non-nano mineral filter, the final and hardest layer — everything else stays protected underneath."},
+  ];
+
+  const wrap = document.getElementById('coreWrap');
+  layers.forEach((l, i) => {
+    const el = document.createElement('div');
+    el.className = 'layer';
+    el.innerHTML = `
+      <span class="layer-depth">${l.depth}</span>
+      <div class="layer-band">
+        <div class="layer-swatch" style="background:${l.color};"></div>
+        <div class="layer-text">
+          <span class="layer-tag">${l.tag}</span>
+          <h3>${l.name}</h3>
+          <p>${l.desc}</p>
+        </div>
+        <span class="layer-plus">+</span>
+      </div>
+    `;
+    el.addEventListener('click', () => el.classList.toggle('open'));
+    wrap.appendChild(el);
+  });
+
+  // Hero ruler ticks
+  const ruler = document.getElementById('heroRuler');
+  for (let m = 0; m <= 50; m += 5) {
+    const s = document.createElement('span');
+    s.textContent = m + 'M';
+    ruler.appendChild(s);
+  }
+
+  // Depth readout tied to scroll
+  const depthReadout = document.getElementById('depthReadout');
+  window.addEventListener('scroll', () => {
+    const meters = (window.scrollY / 12).toFixed(1);
+    depthReadout.textContent = meters + ' M';
+  }, {passive:true});
+
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:0.14});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Footer form (no backend — just a friendly confirmation)
+  document.getElementById('joinForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = 'Logged ✓';
+    setTimeout(() => btn.textContent = 'Subscribe', 2400);
+    e.target.reset();
+  });
+</script>
+
+</body>
+</html>
