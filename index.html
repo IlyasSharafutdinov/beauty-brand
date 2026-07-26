@@ -558,14 +558,14 @@
     <div class="card" data-cat="makeup">
       <div class="card-stage">
         <!-- Вставьте название вашей картинки в src="" -->
-        <img src="lipstick.jpg" alt="Velvet Lip Gloss" id="lipstickImg">
+        <img src="pomade2.jpg" alt="Velvet Lip Gloss" id="lipstickImg">
       </div>
       <p class="card-cat">Makeup</p>
       <h3 class="serif">Velvet Lip Gloss</h3>
       <p>High-shine moisturizing gloss with vibrant color pay-off.</p>
       
       <!-- Блок выбора оттенков -->
-      <div class="selected-shade-label" id="selectedShadeText">Оттенок: Naked Rose</div>
+      <div class="selected-shade-label" id="selectedShadeText">Shade: Naked Rose</div>
       <div class="shade-selector" data-product="Velvet Lip Gloss">
         <div class="shade-dot active-shade" style="background: #E7A9B6;" data-name="Velvet Lip Gloss (Naked Rose)" title="Naked Rose"></div>
         <div class="shade-dot" style="background: #C46274;" data-name="Velvet Lip Gloss (Cherry Pop)" title="Cherry Pop"></div>
@@ -786,7 +786,7 @@
       dot.classList.add('active-shade');
       
       const colorName = dot.dataset.name;
-      selectedShadeText.textContent = 'Оттенок: ' + colorName.replace('Velvet Lip Gloss (', '').replace(')', '');
+      selectedShadeText.textContent = 'Shade: ' + colorName.replace('Velvet Lip Gloss (', '').replace(')', '');
 
       // Обновляем название для кнопки добавления в корзину
       lipstickAddBtn.dataset.name = colorName;
