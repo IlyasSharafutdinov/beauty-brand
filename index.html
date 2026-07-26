@@ -302,28 +302,19 @@
     display:flex;align-items:center;justify-content:center;
     margin-bottom:18px;
     overflow:hidden;
+    background: #f7f3f0;
   }
-  .card-stage .glint{
-    position:absolute;top:8%;left:20%;width:22%;height:14%;
-    background:rgba(255,255,255,0.8);border-radius:50%;filter:blur(3px);
+  /* Стили для картинок товаров: картинка аккуратно вписывается в блок */
+  .card-stage img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 12px;
+    transition: transform 0.4s ease;
   }
-  .shape-jar{width:96px;height:110px;border-radius:20px 20px 30px 30px;}
-  .shape-tube{width:64px;height:150px;border-radius:26px 26px 10px 10px;}
-  .shape-bottle{width:80px;height:140px;border-radius:40px 40px 14px 14px;}
-  .shape-dropper{width:70px;height:130px;border-radius:50% 50% 16px 16px / 60% 60% 16px 16px;}
-  .shape-compact{width:120px;height:80px;border-radius:50%;}
-  .shape-vial{width:56px;height:130px;border-radius:30px 30px 8px 8px;}
-
-  .bg-skincare .card-stage{background:linear-gradient(160deg,#F6E8E2,#E4EFEA);}
-  .bg-makeup .card-stage{background:linear-gradient(160deg,#F8E3E7,#F1C6CE);}
-  .bg-fragrance .card-stage{background:linear-gradient(160deg,#EBE3F3,#DCD1E8);}
-
-  .tone-jar{background:linear-gradient(160deg,#EAF3EE,#D3E6DC);box-shadow:inset 0 -12px 20px rgba(0,0,0,0.05);}
-  .tone-blush{background:linear-gradient(160deg,#F6C9D3,#E7A9B6);}
-  .tone-gold{background:linear-gradient(160deg,#EFD9B0,#C9A574);}
-  .tone-lilac{background:linear-gradient(160deg,#E3D8EF,#C6B4DC);}
-  .tone-rose{background:linear-gradient(160deg,#F3D2D8,#DDA9B6);}
-  .tone-clear{background:linear-gradient(160deg,#F4EFE8,#E4D9CC);}
+  .card:hover .card-stage img {
+    transform: scale(1.06);
+  }
 
   .card-cat{font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;}
   .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.15rem;margin-top:6px;}
@@ -470,7 +461,7 @@
   .drawer-items{flex-grow:1;overflow-y:auto;display:flex;flex-direction:column;gap:18px;}
   .empty-cart{color:var(--ink-soft);font-size:0.9rem;text-align:center;margin-top:60px;}
   .d-item{display:flex;align-items:center;gap:14px;}
-  .d-item .swatch{width:44px;height:44px;border-radius:12px;flex-shrink:0;}
+  .d-item .swatch{width:44px;height:44px;border-radius:12px;flex-shrink:0; object-fit: cover;}
   .d-item .info{flex-grow:1;}
   .d-item .info h4{font-size:0.9rem;font-weight:600;}
   .d-item .info span{font-size:0.78rem;color:var(--ink-soft);}
@@ -508,7 +499,7 @@
     <div>
       <p class="eyebrow">New — The Dew Collection</p>
       <h1 class="serif">Skin that catches <em>the light.</em></h1>
-      <p class="lede">Glass-finish skincare and high-shine makeup, formulated for a glow you can see from across the room. No mattes here — only glaze.</p>
+      <p class="lede">Glass-finish skincare and high-shine makeup, formulated for a glow you can see from across the room.</p>
       <div class="hero-ctas">
         <a href="#shop" class="btn-primary">Shop the Edit</a>
         <a href="#edit" class="btn-ghost">Our Philosophy</a>
@@ -550,22 +541,24 @@
 
     <!-- 1. Пенка для умывания -->
     <div class="card" data-cat="skincare">
-      <div class="card-stage bg-skincare">
-        <div class="shape-jar tone-jar"></div><div class="glint"></div>
+      <div class="card-stage">
+        <!-- Вставьте название вашей картинки в src="" -->
+        <img src="cleansing-foam.jpg" alt="Facial Cleansing Foam" id="img-foam">
       </div>
       <p class="card-cat">Skincare</p>
       <h3 class="serif">Facial Cleansing Foam</h3>
       <p>Gentle foaming cleanser that purifies while preserving natural moisture.</p>
       <div class="card-foot">
         <span class="price">$34</span>
-        <button class="add-btn" data-name="Facial Cleansing Foam" data-price="34" data-tone="tone-jar" aria-label="Add Facial Cleansing Foam">+</button>
+        <button class="add-btn" data-name="Facial Cleansing Foam" data-price="34" data-img="cleansing-foam.jpg" aria-label="Add Facial Cleansing Foam">+</button>
       </div>
     </div>
 
     <!-- 2. Помада с 5 оттенками -->
     <div class="card" data-cat="makeup">
-      <div class="card-stage bg-makeup" id="lipstickStage">
-        <div class="shape-tube tone-blush" id="lipstickShape"></div><div class="glint"></div>
+      <div class="card-stage">
+        <!-- Вставьте название вашей картинки в src="" -->
+        <img src="lipstick.jpg" alt="Velvet Lip Gloss" id="lipstickImg">
       </div>
       <p class="card-cat">Makeup</p>
       <h3 class="serif">Velvet Lip Gloss</h3>
@@ -574,86 +567,91 @@
       <!-- Блок выбора оттенков -->
       <div class="selected-shade-label" id="selectedShadeText">Оттенок: Naked Rose</div>
       <div class="shade-selector" data-product="Velvet Lip Gloss">
-        <div class="shade-dot active-shade" style="background: #E7A9B6;" data-color="#E7A9B6" data-tone="tone-blush" data-name="Velvet Lip Gloss (Naked Rose)" title="Naked Rose"></div>
-        <div class="shade-dot" style="background: #C46274;" data-color="#C46274" data-tone="tone-rose" data-name="Velvet Lip Gloss (Cherry Pop)" title="Cherry Pop"></div>
-        <div class="shade-dot" style="background: #D98864;" data-color="#D98864" data-tone="tone-gold" data-name="Velvet Lip Gloss (Warm Terracotta)" title="Warm Terracotta"></div>
-        <div class="shade-dot" style="background: #9D759C;" data-color="#9D759C" data-tone="tone-lilac" data-name="Velvet Lip Gloss (Plum Glaze)" title="Plum Glaze"></div>
-        <div class="shade-dot" style="background: #F3D2D8;" data-color="#F3D2D8" data-tone="tone-clear" data-name="Velvet Lip Gloss (Milky Nude)" title="Milky Nude"></div>
+        <div class="shade-dot active-shade" style="background: #E7A9B6;" data-name="Velvet Lip Gloss (Naked Rose)" title="Naked Rose"></div>
+        <div class="shade-dot" style="background: #C46274;" data-name="Velvet Lip Gloss (Cherry Pop)" title="Cherry Pop"></div>
+        <div class="shade-dot" style="background: #D98864;" data-name="Velvet Lip Gloss (Warm Terracotta)" title="Warm Terracotta"></div>
+        <div class="shade-dot" style="background: #9D759C;" data-name="Velvet Lip Gloss (Plum Glaze)" title="Plum Glaze"></div>
+        <div class="shade-dot" style="background: #F3D2D8;" data-name="Velvet Lip Gloss (Milky Nude)" title="Milky Nude"></div>
       </div>
 
       <div class="card-foot">
         <span class="price">$28</span>
-        <button class="add-btn lipstick-add" data-name="Velvet Lip Gloss (Naked Rose)" data-price="28" data-tone="tone-blush" aria-label="Add Velvet Lip Gloss">+</button>
+        <button class="add-btn lipstick-add" data-name="Velvet Lip Gloss (Naked Rose)" data-price="28" data-img="lipstick.jpg" aria-label="Add Velvet Lip Gloss">+</button>
       </div>
     </div>
 
     <!-- 3. SPF -->
     <div class="card" data-cat="skincare">
-      <div class="card-stage bg-skincare">
-        <div class="shape-dropper tone-gold"></div><div class="glint"></div>
+      <div class="card-stage">
+        <!-- Вставьте название вашей картинки в src="" -->
+        <img src="spf.jpg" alt="Glow Screen SPF 50">
       </div>
       <p class="card-cat">Skincare</p>
       <h3 class="serif">Glow Screen SPF 50</h3>
       <p>Invisible broad-spectrum protection with a dewy, glowing finish.</p>
       <div class="card-foot">
         <span class="price">$38</span>
-        <button class="add-btn" data-name="Glow Screen SPF 50" data-price="38" data-tone="tone-gold" aria-label="Add Glow Screen SPF 50">+</button>
+        <button class="add-btn" data-name="Glow Screen SPF 50" data-price="38" data-img="spf.jpg" aria-label="Add Glow Screen SPF 50">+</button>
       </div>
     </div>
 
     <!-- 4. Духи 1 -->
     <div class="card" data-cat="fragrance">
-      <div class="card-stage bg-fragrance">
-        <div class="shape-bottle tone-lilac"></div><div class="glint"></div>
+      <div class="card-stage">
+        <!-- Вставьте название вашей картинки в src="" -->
+        <img src="bloom-mist.jpg" alt="Bloom Mist">
       </div>
       <p class="card-cat">Fragrance</p>
       <h3 class="serif">Bloom Mist</h3>
       <p>A petal-soft eau de parfum with notes of fresh peony and white musk.</p>
       <div class="card-foot">
         <span class="price">$68</span>
-        <button class="add-btn" data-name="Bloom Mist" data-price="68" data-tone="tone-lilac" aria-label="Add Bloom Mist">+</button>
+        <button class="add-btn" data-name="Bloom Mist" data-price="68" data-img="bloom-mist.jpg" aria-label="Add Bloom Mist">+</button>
       </div>
     </div>
 
     <!-- 5. Духи 2 -->
     <div class="card" data-cat="fragrance">
-      <div class="card-stage bg-fragrance">
-        <div class="shape-vial tone-rose"></div><div class="glint"></div>
+      <div class="card-stage">
+        <!-- Вставьте название вашей картинки в src="" -->
+        <img src="midnight-nectar.jpg" alt="Midnight Nectar">
       </div>
       <p class="card-cat">Fragrance</p>
       <h3 class="serif">Midnight Nectar</h3>
       <p>Sensual evening fragrance featuring amber, vanilla, and dark orchid.</p>
       <div class="card-foot">
         <span class="price">$74</span>
-        <button class="add-btn" data-name="Midnight Nectar" data-price="74" data-tone="tone-rose" aria-label="Add Midnight Nectar">+</button>
+        <button class="add-btn" data-name="Midnight Nectar" data-price="74" data-img="midnight-nectar.jpg" aria-label="Add Midnight Nectar">+</button>
       </div>
     </div>
 
     <!-- 6. Восстанавливающий крем для лица -->
     <div class="card" data-cat="skincare">
-      <div class="card-stage bg-skincare">
-        <div class="shape-compact tone-jar"></div><div class="glint"></div>
+      <div class="card-stage">
+        <!-- Вставьте название вашей картинки в src="" -->
+        <img src="recovery-cream.jpg" alt="Barrier Recovery Cream">
       </div>
       <p class="card-cat">Skincare</p>
       <h3 class="serif">Barrier Recovery Cream</h3>
       <p>Rich, nourishing treatment cream to repair and deeply soothe stressed skin.</p>
       <div class="card-foot">
         <span class="price">$45</span>
-        <button class="add-btn" data-name="Barrier Recovery Cream" data-price="45" data-tone="tone-jar" aria-label="Add Barrier Recovery Cream">+</button>
+        <button class="add-btn" data-name="Barrier Recovery Cream" data-price="45" data-img="recovery-cream.jpg" aria-label="Add Barrier Recovery Cream">+</button>
       </div>
     </div>
 
     <!-- 7. Успокаивающий спрей для лица -->
     <div class="card" data-cat="skincare">
-      <div class="card-stage bg-skincare">
-        <div class="shape-bottle tone-clear"></div><div class="glint"></div>
+      <div class="card-stage">
+        <!-- Вставьте название вашей картинки в src="" -->
+        <img src="rose-mist.jpg" alt="Calming Rose Mist">
       </div>
       <p class="card-cat">Skincare</p>
       <h3 class="serif">Calming Rose Mist</h3>
       <p>Refreshing facial mist infused with organic rose water and aloe vera.</p>
       <div class="card-foot">
         <span class="price">$26</span>
-        <button class="add-btn" data-name="Calming Rose Mist" data-price="26" data-tone="tone-clear" aria-label="Add Calming Rose Mist">+</button>
+        <button class="add-btn" data-name="Calming Rose Mist" data-price="26" data-img="rose-mist.jpg" aria-label="Add Calming Rose Mist">+</button>
       </div>
     </div>
 
@@ -779,7 +777,6 @@
 
   // --- Выбор оттенков помады ---
   const shadeDots = document.querySelectorAll('.shade-dot');
-  const lipstickShape = document.getElementById('lipstickShape');
   const selectedShadeText = document.getElementById('selectedShadeText');
   const lipstickAddBtn = document.querySelector('.lipstick-add');
 
@@ -789,18 +786,10 @@
       dot.classList.add('active-shade');
       
       const colorName = dot.dataset.name;
-      const toneClass = dot.dataset.tone;
-      const hexColor = dot.dataset.color;
-
       selectedShadeText.textContent = 'Оттенок: ' + colorName.replace('Velvet Lip Gloss (', '').replace(')', '');
-      
-      // Меняем цвет и класс визуального блока помады
-      lipstickShape.className = 'shape-tube ' + toneClass;
-      lipstickShape.style.background = hexColor;
 
-      // Обновляем данные для кнопки добавления в корзину
+      // Обновляем название для кнопки добавления в корзину
       lipstickAddBtn.dataset.name = colorName;
-      lipstickAddBtn.dataset.tone = toneClass;
     });
   });
 
@@ -843,7 +832,7 @@
 
     drawerItems.innerHTML = cart.map((item, index) => `
       <div class="d-item" style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px; border-bottom: 1px solid rgba(42,30,40,0.06); padding-bottom: 14px;">
-        <div class="swatch ${item.tone}"></div>
+        <img src="${item.img}" class="swatch" alt="${item.name}">
         <div class="info" style="flex-grow: 1;">
           <h4 style="font-size: 0.9rem; font-weight: 600;">${item.name}</h4>
           <span style="font-size: 0.78rem; color: var(--ink-soft);">$${item.price} × ${item.quantity} = $${item.price * item.quantity}</span>
@@ -878,13 +867,13 @@
     btn.addEventListener('click', () => {
       const name = btn.dataset.name;
       const price = parseInt(btn.dataset.price, 10);
-      const tone = btn.dataset.tone || 'tone-jar';
+      const img = btn.dataset.img || '';
 
       const existingItem = cart.find(item => item.name === name);
       if (existingItem) {
         existingItem.quantity += 1;
       } else {
-        cart.push({ name, price, tone, quantity: 1 });
+        cart.push({ name, price, img, quantity: 1 });
       }
       renderCart();
       drawer.classList.add('open');
