@@ -92,16 +92,6 @@
   .nav-actions{display:flex;align-items:center;gap:22px;}
   .icon-btn{position:relative;width:22px;height:22px;display:flex;align-items:center;justify-content:center;}
   .icon-btn svg{width:19px;height:19px;stroke:var(--ink);fill:none;stroke-width:1.4;}
-  .cart-count{
-    position:absolute;top:-8px;right:-10px;
-    background:var(--ink);color:var(--cream);
-    font-size:0.62rem;font-weight:600;
-    width:16px;height:16px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    transition:transform .25s ease;
-  }
-  .cart-count.pulse{animation:pop .35s ease;}
-  @keyframes pop{0%{transform:scale(1);}50%{transform:scale(1.5);}100%{transform:scale(1);}}
 
   @media (max-width:840px){
     .nav-links{display:none;}
@@ -160,6 +150,7 @@
     font-size:0.85rem;font-weight:600;letter-spacing:0.02em;
     transition:transform .3s ease, box-shadow .3s ease;
     box-shadow:0 8px 24px rgba(42,30,40,0.18);
+    display:inline-block;
   }
   .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(42,30,40,0.24);}
   .btn-ghost{
@@ -304,7 +295,6 @@
     overflow:hidden;
     background: #f7f3f0;
   }
-  /* Стили для картинок товаров: картинка аккуратно вписывается в блок */
   .card-stage img {
     width: 100%;
     height: 100%;
@@ -319,12 +309,12 @@
   .card-cat{font-size:0.66rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;}
   .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.15rem;margin-top:6px;}
   .card p{font-size:0.86rem;color:var(--ink-soft);margin-top:6px;line-height:1.45;}
-  
+
   /* Стили для оттенков помады */
   .shade-selector {
     display: flex;
     gap: 8px;
-    margin: 12px 0 6px;
+    margin: 14px 0 6px;
     align-items: center;
   }
   .shade-dot {
@@ -349,16 +339,15 @@
     font-weight: 500;
   }
 
-  .card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px;}
-  .price{font-weight:600;font-size:1rem;}
-  .add-btn{
-    width:38px;height:38px;border-radius:50%;
-    background:var(--ink);color:var(--cream);
-    display:flex;align-items:center;justify-content:center;
-    font-size:1.1rem;
-    transition:background .25s ease, transform .25s ease;
+  .card-foot{margin-top:auto;padding-top:14px;}
+  .discover-tag{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:0.76rem;font-weight:600;letter-spacing:0.03em;
+    color:var(--ink-soft);
   }
-  .add-btn:hover{background:var(--gold);transform:rotate(90deg);}
+  .discover-tag svg{width:13px;height:13px;stroke:var(--ink-soft);fill:none;stroke-width:1.6;transition:transform .3s ease;}
+  .card:hover .discover-tag{color:var(--ink);}
+  .card:hover .discover-tag svg{transform:translateX(4px);stroke:var(--ink);}
 
   /* ---------- EDITORIAL ---------- */
   .editorial{
@@ -440,34 +429,6 @@
   .f-bottom{max-width:1360px;margin:0 auto;padding-top:24px;display:flex;justify-content:space-between;font-size:0.75rem;flex-wrap:wrap;gap:10px;}
   @media (max-width:800px){.f-grid{grid-template-columns:1fr 1fr;}}
 
-  /* ---------- CART DRAWER ---------- */
-  .overlay{
-    position:fixed;inset:0;background:rgba(42,30,40,0.35);
-    opacity:0;pointer-events:none;transition:opacity .35s ease;z-index:200;
-  }
-  .overlay.open{opacity:1;pointer-events:auto;}
-  .drawer{
-    position:fixed;top:0;right:0;height:100%;width:min(400px,92vw);
-    background:rgba(251,241,236,0.92);
-    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
-    box-shadow:-20px 0 50px rgba(42,30,40,0.2);
-    transform:translateX(100%);transition:transform .45s cubic-bezier(.4,0,.2,1);
-    z-index:201;padding:34px 28px;display:flex;flex-direction:column;
-  }
-  .drawer.open{transform:translateX(0);}
-  .drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
-  .drawer-head h3{font-family:'Fraunces',serif;font-style:italic;font-size:1.4rem;}
-  .close-btn{width:32px;height:32px;border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:1rem;}
-  .drawer-items{flex-grow:1;overflow-y:auto;display:flex;flex-direction:column;gap:18px;}
-  .empty-cart{color:var(--ink-soft);font-size:0.9rem;text-align:center;margin-top:60px;}
-  .d-item{display:flex;align-items:center;gap:14px;}
-  .d-item .swatch{width:44px;height:44px;border-radius:12px;flex-shrink:0; object-fit: cover;}
-  .d-item .info{flex-grow:1;}
-  .d-item .info h4{font-size:0.9rem;font-weight:600;}
-  .d-item .info span{font-size:0.78rem;color:var(--ink-soft);}
-  .drawer-foot{border-top:1px solid rgba(42,30,40,0.12);padding-top:20px;margin-top:16px;}
-  .subtotal-row{display:flex;justify-content:space-between;font-weight:600;margin-bottom:16px;}
-
   @media (prefers-reduced-motion: reduce){
     *{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;}
   }
@@ -478,7 +439,7 @@
 <nav id="nav">
   <div class="logo">GLAZE</div>
   <ul class="nav-links">
-    <li><a href="#shop">Shop</a></li>
+    <li><a href="#shop">Gallery</a></li>
     <li><a href="#edit">The Edit</a></li>
     <li><a href="#reviews">Reviews</a></li>
     <li><a href="#join">Journal</a></li>
@@ -486,10 +447,6 @@
   <div class="nav-actions">
     <button class="icon-btn" aria-label="Search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-    </button>
-    <button class="icon-btn" id="cartBtn" aria-label="Open cart">
-      <svg viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-      <span class="cart-count" id="cartCount">0</span>
     </button>
   </div>
 </nav>
@@ -501,7 +458,7 @@
       <h1 class="serif">Skin that catches <em>the light.</em></h1>
       <p class="lede">Glass-finish skincare and high-shine makeup, formulated for a glow you can see from across the room.</p>
       <div class="hero-ctas">
-        <a href="#shop" class="btn-primary">Shop the Edit</a>
+        <a href="#shop" class="btn-primary">Explore the Collection</a>
         <a href="#edit" class="btn-ghost">Our Philosophy</a>
       </div>
     </div>
@@ -542,116 +499,116 @@
     <!-- 1. Пенка для умывания -->
     <div class="card" data-cat="skincare">
       <div class="card-stage">
-        <!-- Вставьте название вашей картинки в src="" -->
         <img src="b2f43ade-a095-44ce-a8d1-3622671b4fd7.png" alt="Facial Cleansing Foam" id="img-foam">
       </div>
       <p class="card-cat">Skincare</p>
       <h3 class="serif">Facial Cleansing Foam</h3>
       <p>Gentle foaming cleanser that purifies while preserving natural moisture.</p>
       <div class="card-foot">
-        <span class="price">$34</span>
-        <button class="add-btn" data-name="Facial Cleansing Foam" data-price="34" data-img="cleansing-foam.jpg" aria-label="Add Facial Cleansing Foam">+</button>
+        <span class="discover-tag">Discover
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
       </div>
     </div>
 
     <!-- 2. Помада с 5 оттенками -->
     <div class="card" data-cat="makeup">
       <div class="card-stage">
-        <!-- Вставьте название вашей картинки в src="" -->
         <img src="pomade2.jpg" alt="Velvet Lip Gloss" id="lipstickImg">
       </div>
       <p class="card-cat">Makeup</p>
       <h3 class="serif">Velvet Lip Gloss</h3>
       <p>High-shine moisturizing gloss with vibrant color pay-off.</p>
-      
+
       <!-- Блок выбора оттенков -->
       <div class="selected-shade-label" id="selectedShadeText">Shade: Naked Rose</div>
       <div class="shade-selector" data-product="Velvet Lip Gloss">
-        <div class="shade-dot active-shade" style="background: #E7A9B6;" data-name="Velvet Lip Gloss (Naked Rose)" title="Naked Rose"></div>
-        <div class="shade-dot" style="background: #C46274;" data-name="Velvet Lip Gloss (Cherry Pop)" title="Cherry Pop"></div>
-        <div class="shade-dot" style="background: #D98864;" data-name="Velvet Lip Gloss (Warm Terracotta)" title="Warm Terracotta"></div>
-        <div class="shade-dot" style="background: #9D759C;" data-name="Velvet Lip Gloss (Plum Glaze)" title="Plum Glaze"></div>
-        <div class="shade-dot" style="background: #F3D2D8;" data-name="Velvet Lip Gloss (Milky Nude)" title="Milky Nude"></div>
+        <div class="shade-dot active-shade" style="background: #E7A9B6;" data-name="Naked Rose" title="Naked Rose"></div>
+        <div class="shade-dot" style="background: #C46274;" data-name="Cherry Pop" title="Cherry Pop"></div>
+        <div class="shade-dot" style="background: #D98864;" data-name="Warm Terracotta" title="Warm Terracotta"></div>
+        <div class="shade-dot" style="background: #9D759C;" data-name="Plum Glaze" title="Plum Glaze"></div>
+        <div class="shade-dot" style="background: #F3D2D8;" data-name="Milky Nude" title="Milky Nude"></div>
       </div>
 
       <div class="card-foot">
-        <span class="price">$28</span>
-        <button class="add-btn lipstick-add" data-name="Velvet Lip Gloss (Naked Rose)" data-price="28" data-img="lipstick.jpg" aria-label="Add Velvet Lip Gloss">+</button>
+        <span class="discover-tag">Discover
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
       </div>
     </div>
 
     <!-- 3. SPF -->
     <div class="card" data-cat="skincare">
       <div class="card-stage">
-        <!-- Вставьте название вашей картинки в src="" -->
         <img src="spf.jpg" alt="Glow Screen SPF 50">
       </div>
       <p class="card-cat">Skincare</p>
       <h3 class="serif">Glow Screen SPF 50</h3>
       <p>Invisible broad-spectrum protection with a dewy, glowing finish.</p>
       <div class="card-foot">
-        <span class="price">$38</span>
-        <button class="add-btn" data-name="Glow Screen SPF 50" data-price="38" data-img="spf.jpg" aria-label="Add Glow Screen SPF 50">+</button>
+        <span class="discover-tag">Discover
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
       </div>
     </div>
 
     <!-- 4. Духи 1 -->
     <div class="card" data-cat="fragrance">
       <div class="card-stage">
-        <!-- Вставьте название вашей картинки в src="" -->
         <img src="bloom-mist.jpg" alt="Bloom Mist">
       </div>
       <p class="card-cat">Fragrance</p>
       <h3 class="serif">Bloom Mist</h3>
       <p>A petal-soft eau de parfum with notes of fresh peony and white musk.</p>
       <div class="card-foot">
-        <span class="price">$68</span>
-        <button class="add-btn" data-name="Bloom Mist" data-price="68" data-img="bloom-mist.jpg" aria-label="Add Bloom Mist">+</button>
+        <span class="discover-tag">Discover
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
       </div>
     </div>
 
     <!-- 5. Духи 2 -->
     <div class="card" data-cat="fragrance">
       <div class="card-stage">
-        <!-- Вставьте название вашей картинки в src="" -->
         <img src="midnight-nectar.jpg" alt="Midnight Nectar">
       </div>
       <p class="card-cat">Fragrance</p>
       <h3 class="serif">Midnight Nectar</h3>
       <p>Sensual evening fragrance featuring amber, vanilla, and dark orchid.</p>
       <div class="card-foot">
-        <span class="price">$74</span>
-        <button class="add-btn" data-name="Midnight Nectar" data-price="74" data-img="midnight-nectar.jpg" aria-label="Add Midnight Nectar">+</button>
+        <span class="discover-tag">Discover
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
       </div>
     </div>
 
     <!-- 6. Восстанавливающий крем для лица -->
     <div class="card" data-cat="skincare">
       <div class="card-stage">
-        <!-- Вставьте название вашей картинки в src="" -->
         <img src="recovery-cream.jpg" alt="Barrier Recovery Cream">
       </div>
       <p class="card-cat">Skincare</p>
       <h3 class="serif">Barrier Recovery Cream</h3>
       <p>Rich, nourishing treatment cream to repair and deeply soothe stressed skin.</p>
       <div class="card-foot">
-        <span class="price">$45</span>
-        <button class="add-btn" data-name="Barrier Recovery Cream" data-price="45" data-img="recovery-cream.jpg" aria-label="Add Barrier Recovery Cream">+</button>
+        <span class="discover-tag">Discover
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
       </div>
     </div>
 
     <!-- 7. Успокаивающий спрей для лица -->
     <div class="card" data-cat="skincare">
       <div class="card-stage">
-        <!-- Вставьте название вашей картинки в src="" -->
         <img src="rose-mist.jpg" alt="Calming Rose Mist">
       </div>
       <p class="card-cat">Skincare</p>
       <h3 class="serif">Calming Rose Mist</h3>
       <p>Refreshing facial mist infused with organic rose water and aloe vera.</p>
       <div class="card-foot">
-        <span class="price">$26</span>
-        <button class="add-btn" data-name="Calming Rose Mist" data-price="26" data-img="rose-mist.jpg" aria-label="Add Calming Rose Mist">+</button>
+        <span class="discover-tag">Discover
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
       </div>
     </div>
 
@@ -693,7 +650,7 @@
 
 <div class="newsletter" id="join">
   <h2 class="serif">Get first access to new glazes.</h2>
-  <p>Join the list for early drops, restocks, and 10% off your first order.</p>
+  <p>Join the list for early looks, launch stories, and behind-the-scenes of the collection.</p>
   <form class="n-form" id="newsForm">
     <input type="email" placeholder="Your email" required aria-label="Email address">
     <button type="submit">Subscribe</button>
@@ -707,7 +664,7 @@
       <p>Glass-finish skincare and high-shine makeup, made for skin that catches the light.</p>
     </div>
     <div class="f-col">
-      <h4>Shop</h4>
+      <h4>Gallery</h4>
       <ul><li><a href="#shop">Skincare</a></li><li><a href="#shop">Makeup</a></li><li><a href="#shop">Fragrance</a></li></ul>
     </div>
     <div class="f-col">
@@ -716,7 +673,7 @@
     </div>
     <div class="f-col">
       <h4>Help</h4>
-      <ul><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li><li><a href="#">Contact</a></li></ul>
+      <ul><li><a href="#">Contact</a></li><li><a href="#">FAQ</a></li></ul>
     </div>
   </div>
   <div class="f-bottom">
@@ -724,21 +681,6 @@
     <span>Made with a little shine.</span>
   </div>
 </footer>
-
-<div class="overlay" id="overlay"></div>
-<aside class="drawer" id="drawer" aria-label="Shopping cart">
-  <div class="drawer-head">
-    <h3 class="serif">Your Bag</h3>
-    <button class="close-btn" id="closeDrawer" aria-label="Close cart">✕</button>
-  </div>
-  <div class="drawer-items" id="drawerItems">
-    <p class="empty-cart">Your bag is looking a little bare.</p>
-  </div>
-  <div class="drawer-foot">
-    <div class="subtotal-row"><span>Subtotal</span><span id="subtotal">$0</span></div>
-    <a href="#" class="btn-primary" style="display:block;text-align:center;">Checkout</a>
-  </div>
-</aside>
 
 <script>
   // Nav scroll state
@@ -775,111 +717,28 @@
     });
   });
 
-  // --- Выбор оттенков помады ---
+  // --- Выбор оттенков помады (только просмотр, без покупки) ---
   const shadeDots = document.querySelectorAll('.shade-dot');
   const selectedShadeText = document.getElementById('selectedShadeText');
-  const lipstickAddBtn = document.querySelector('.lipstick-add');
 
   shadeDots.forEach(dot => {
     dot.addEventListener('click', () => {
       shadeDots.forEach(d => d.classList.remove('active-shade'));
       dot.classList.add('active-shade');
-      
-      const colorName = dot.dataset.name;
-      selectedShadeText.textContent = 'Shade: ' + colorName.replace('Velvet Lip Gloss (', '').replace(')', '');
-
-      // Обновляем название для кнопки добавления в корзину
-      lipstickAddBtn.dataset.name = colorName;
+      selectedShadeText.textContent = 'Shade: ' + dot.dataset.name;
     });
   });
 
-  // ---------- КОРЗИНА ----------
-  let cart = [];
-  const cartCountEl = document.getElementById('cartCount');
-  const drawerItems = document.getElementById('drawerItems');
-  const subtotalEl = document.getElementById('subtotal');
-  const drawer = document.getElementById('drawer');
-  const overlay = document.getElementById('overlay');
-  const cartBtn = document.getElementById('cartBtn');
-  const closeDrawer = document.getElementById('closeDrawer');
-
-  cartBtn.addEventListener('click', () => {
-    drawer.classList.add('open');
-    overlay.classList.add('open');
-  });
-
-  closeDrawer.addEventListener('click', () => {
-    drawer.classList.remove('open');
-    overlay.classList.remove('open');
-  });
-
-  overlay.addEventListener('click', () => {
-    drawer.classList.remove('open');
-    overlay.classList.remove('open');
-  });
-
-  function renderCart(){
-    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCountEl.textContent = totalCount;
-    cartCountEl.classList.add('pulse');
-    setTimeout(() => cartCountEl.classList.remove('pulse'), 350);
-
-    if(cart.length === 0){
-      drawerItems.innerHTML = '<p class="empty-cart">Your bag is looking a little bare.</p>';
-      subtotalEl.textContent = '$0';
-      return;
-    }
-
-    drawerItems.innerHTML = cart.map((item, index) => `
-      <div class="d-item" style="display: flex; align-items: center; gap: 14px; margin-bottom: 14px; border-bottom: 1px solid rgba(42,30,40,0.06); padding-bottom: 14px;">
-        <img src="${item.img}" class="swatch" alt="${item.name}">
-        <div class="info" style="flex-grow: 1;">
-          <h4 style="font-size: 0.9rem; font-weight: 600;">${item.name}</h4>
-          <span style="font-size: 0.78rem; color: var(--ink-soft);">$${item.price} × ${item.quantity} = $${item.price * item.quantity}</span>
-          <div style="display: flex; align-items: center; gap: 10px; margin-top: 6px;">
-            <button onclick="changeQuantity(${index}, -1)" style="width: 22px; height: 22px; background: #eee; border-radius: 4px; font-weight: bold;">-</button>
-            <span style="font-size: 0.85rem; font-weight: 600;">${item.quantity}</span>
-            <button onclick="changeQuantity(${index}, 1)" style="width: 22px; height: 22px; background: #eee; border-radius: 4px; font-weight: bold;">+</button>
-          </div>
-        </div>
-        <button onclick="removeItem(${index})" style="background: none; font-size: 1.1rem; color: #888; padding: 5px;" title="Удалить">✕</button>
-      </div>
-    `).join('');
-
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    subtotalEl.textContent = '$' + subtotal;
-  }
-
-  window.changeQuantity = function(index, delta) {
-    cart[index].quantity += delta;
-    if (cart[index].quantity <= 0) {
-      cart.splice(index, 1);
-    }
-    renderCart();
-  }
-
-  window.removeItem = function(index) {
-    cart.splice(index, 1);
-    renderCart();
-  }
-
-  document.querySelectorAll('.add-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const name = btn.dataset.name;
-      const price = parseInt(btn.dataset.price, 10);
-      const img = btn.dataset.img || '';
-
-      const existingItem = cart.find(item => item.name === name);
-      if (existingItem) {
-        existingItem.quantity += 1;
-      } else {
-        cart.push({ name, price, img, quantity: 1 });
-      }
-      renderCart();
-      drawer.classList.add('open');
-      overlay.classList.add('open');
+  // Newsletter form — просто предотвращаем перезагрузку страницы
+  const newsForm = document.getElementById('newsForm');
+  if (newsForm) {
+    newsForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      newsForm.querySelector('input').value = '';
+      newsForm.querySelector('button').textContent = 'Thank you!';
+      setTimeout(() => { newsForm.querySelector('button').textContent = 'Subscribe'; }, 2000);
     });
-  });
+  }
 </script>
 </body>
 </html>
